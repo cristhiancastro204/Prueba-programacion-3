@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RentLife</title>
+    <!-- Modern Font: Roboto / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <div style="font-weight: 800; font-size: 16px; letter-spacing: 2px;">RENTLIFE</div>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#" class="active">HOME</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">TEAM</a></li>
+                    <li><a href="#">SEARCH</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-copy">
+                <p>Copyright 2021 RentLife LLC. All rights reserved.</p>
+            </div>
+            
+            <div class="footer-links-center">
+                 <p>30 N LaSalle St<br>Suite #900<br>Chicago, IL<br>60602 USA</p>
+            </div>
+
+            <div class="footer-nav">
+                <a href="#">HOME</a>
+                <a href="#">ABOUT</a>
+                <a href="#">TEAM</a>
+                <a href="#">SEARCH</a>
+            </div>
+
+            <div class="footer-logo">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/roofing.png" alt="Logo" class="f-logo"/>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,86 @@
+@model Clase3.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Experiences";
+}
+
+<div class="hero-section">
+    <div class="hero-background" style="background-image: url('@Model.HeroImageUrl');"></div>
+    <div class="hero-content">
+        <h4>FIND YOUR NEW</h4>
+        <h1>Experiences</h1>
+    </div>
+</div>
+
+<div class="logos-bar">
+    @* Hardcoded text logos matching the image corporate brands: Morguard, MR, CMK, Habitat, CA *@
+    <div class="logo-text logo-morguard">Morguard</div>
+    <div class="logo-text logo-mr">MR</div>
+    <div class="logo-text logo-cmk">CMK</div>
+    <div class="logo-text logo-habitat">HABITAT</div>
+    <div class="logo-text logo-ca">CA</div>
+</div>
+
+<div class="stats-section">
+    <div class="stat-item">
+        <h2>+90</h2>
+        <p>Midwest Management Locations</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+        <h2>+3500</h2>
+        <p>Units</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+        <h2>+4000</h2>
+        <p>Units in Development</p>
+    </div>
+</div>
+
+<div class="intro-section">
+    <p>Everything changes when you upgrade from an apartment to a home. RentLife has unique hands on day by day experience in creating a true living experience for its residents. All our partners take dedication in creating a cohesive community culture that goes unmatched by anywhere else. When you are a resident in our properties you become part of the RentLife Family and all the benefits that entails. Take a peek into your future with these featured communities.</p>
+</div>
+
+<div class="buildings-grid">
+    @for (int i = 0; i < Model.Buildings.Count; i++)
+    {
+        var b = Model.Buildings[i];
+        <div class="building-card">
+            <div class="card-image" style="background-image: url('@b.PhotoUrl');"></div>
+            <div class="card-header">
+                <h3>@b.Name</h3>
+            </div>
+            <div class="card-info">
+                <div class="info-row">
+                    <span class="info-label">Neighborhood</span>
+                    <span class="info-value">@b.Neighborhood</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Management</span>
+                    <span class="info-value">@b.Management</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Ownership</span>
+                    <span class="info-value">@(string.IsNullOrEmpty(b.Ownership) ? b.Management : b.Ownership)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Units</span>
+                    <span class="info-value">@b.Units</span>
+                </div>
+            </div>
+        </div>
+
+        @* Insert the promotional banner exactly halfway through the cards we loaded (e.g., at index 11 -> after 12 cards) *@
+        @if (i == 11)
+        {
+            <div class="promotional-banner">
+                <div class="promo-content">
+                    <img src="https://img.icons8.com/ios/100/ffffff/keys.png" alt="Keys" class="promo-icon"/>
+                    <h2>+3500</h2>
+                    <p>Experience<br>Program</p>
+                </div>
+            </div>
+        }
+    }
+</div>
