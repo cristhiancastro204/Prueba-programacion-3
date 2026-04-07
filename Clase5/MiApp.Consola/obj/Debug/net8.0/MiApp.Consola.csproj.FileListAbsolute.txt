@@ -1,0 +1,15 @@
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\bin\Debug\net8.0\MiApp.Consola.exe
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\bin\Debug\net8.0\MiApp.Consola.deps.json
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\bin\Debug\net8.0\MiApp.Consola.runtimeconfig.json
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\bin\Debug\net8.0\MiApp.Consola.dll
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\bin\Debug\net8.0\MiApp.Consola.pdb
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.AssemblyInfoInputs.cache
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.AssemblyInfo.cs
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.csproj.CoreCompileInputs.cache
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.sourcelink.json
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.dll
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\refint\MiApp.Consola.dll
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.pdb
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\MiApp.Consola.genruntimeconfig.cache
+C:\Users\cris2\OneDrive\Desktop\Prueba-programacion-3\Clase5\MiApp.Consola\obj\Debug\net8.0\ref\MiApp.Consola.dll
