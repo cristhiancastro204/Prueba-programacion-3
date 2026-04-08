@@ -10,6 +10,28 @@ namespace MiApp.Consola
             return resultado;
         }
 
+        public static int Restar(int a, int b)
+        {
+            int resultado = a - b;
+            return resultado;
+        }
+
+        public static int Multiplicar(int a, int b)
+        {
+            int resultado = a * b;
+            return resultado;
+        }
+
+        public static double Dividir(double a, double b)
+        {
+            if (b == 0)
+            {
+                throw new ArgumentException("No se puede dividir por cero.");
+            }
+            double resultado = a / b;
+            return resultado;
+        }
+
         public static double Potencia(double baseNum, double exponente)
         {
             double resultado = Math.Pow(baseNum, exponente);
@@ -29,6 +51,18 @@ namespace MiApp.Consola
         public static double Seno(double anguloRadianes)
         {
             double resultado = Math.Sin(anguloRadianes);
+            return resultado;
+        }
+
+        public static double Coseno(double anguloRadianes)
+        {
+            double resultado = Math.Cos(anguloRadianes);
+            return resultado;
+        }
+
+        public static double Tangente(double anguloRadianes)
+        {
+            double resultado = Math.Tan(anguloRadianes);
             return resultado;
         }
 
