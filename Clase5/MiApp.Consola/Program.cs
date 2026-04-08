@@ -30,90 +30,24 @@ while (continuar)
 
     try
     {
-        if (opcion == "1")
-        {
-            Console.Write("Ingrese el primer entero: ");
-            int a = int.Parse(Console.ReadLine() ?? "0");
-            Console.Write("Ingrese el segundo entero: ");
-            int b = int.Parse(Console.ReadLine() ?? "0");
-            int resultado = Calculadora.Sumar(a, b);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "2")
-        {
-            Console.Write("Ingrese el primer entero: ");
-            int a = int.Parse(Console.ReadLine() ?? "0");
-            Console.Write("Ingrese el segundo entero: ");
-            int b = int.Parse(Console.ReadLine() ?? "0");
-            int resultado = Calculadora.Restar(a, b);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "3")
-        {
-            Console.Write("Ingrese el primer entero: ");
-            int a = int.Parse(Console.ReadLine() ?? "0");
-            Console.Write("Ingrese el segundo entero: ");
-            int b = int.Parse(Console.ReadLine() ?? "0");
-            int resultado = Calculadora.Multiplicar(a, b);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "4")
-        {
-            Console.Write("Ingrese el dividendo: ");
-            double a = double.Parse(Console.ReadLine() ?? "0");
-            Console.Write("Ingrese el divisor: ");
-            double b = double.Parse(Console.ReadLine() ?? "0");
-            double resultado = Calculadora.Dividir(a, b);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "5")
-        {
-            Console.Write("Ingrese la base: ");
-            double baseNum = double.Parse(Console.ReadLine() ?? "0");
-            Console.Write("Ingrese el exponente: ");
-            double exponente = double.Parse(Console.ReadLine() ?? "0");
-            double resultado = Calculadora.Potencia(baseNum, exponente);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "6")
-        {
-            Console.Write("Ingrese el número para calcular su raíz cuadrada: ");
-            double num = double.Parse(Console.ReadLine() ?? "0");
-            double resultado = Calculadora.RaizCuadrada(num);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "7")
-        {
-            Console.Write("Ingrese el ángulo en radianes: ");
-            double num = double.Parse(Console.ReadLine() ?? "0");
-            double resultado = Calculadora.Seno(num);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "8")
-        {
-            Console.Write("Ingrese el ángulo en radianes: ");
-            double num = double.Parse(Console.ReadLine() ?? "0");
-            double resultado = Calculadora.Coseno(num);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "9")
-        {
-            Console.Write("Ingrese el ángulo en radianes: ");
-            double num = double.Parse(Console.ReadLine() ?? "0");
-            double resultado = Calculadora.Tangente(num);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else if (opcion == "10")
-        {
-            Console.Write("Ingrese el número para calcular logaritmo (Base 10): ");
-            double num = double.Parse(Console.ReadLine() ?? "1");
-            double resultado = Calculadora.Logaritmo(num);
-            Console.WriteLine($"Resultado: {resultado}");
-        }
-        else
+        var info = GestorOperaciones.ObtenerInformacion(opcion);
+        if (!info.EsValida)
         {
             Console.WriteLine("Opción no válida.");
+            Console.WriteLine("\nPresione cualquier tecla para continuar...");
+            Console.ReadKey();
+            continue;
         }
+
+        double[] parametros = new double[info.NombresParametros.Length];
+        for (int i = 0; i < info.NombresParametros.Length; i++)
+        {
+            Console.Write($"Ingrese {info.NombresParametros[i]}: ");
+            parametros[i] = double.Parse(Console.ReadLine() ?? "0");
+        }
+
+        double resultado = GestorOperaciones.Ejecutar(opcion, parametros);
+        Console.WriteLine($"Resultado: {resultado}");
     }
     catch (Exception ex)
     {
