@@ -27,6 +27,48 @@ namespace MiApp.Consola.Tests
             Assert.Equal(resultadoEsperado, resultadoActual);
         }
 
+        // ------------- RESTA -------------
+        [Fact]
+        public void Restar_DosNumeros_DevuelveRestaCorrecta()
+        {
+            int a = 10;
+            int b = 4;
+            int resultadoEsperado = 6;
+            int resultadoActual = Calculadora.Restar(a, b);
+            Assert.Equal(resultadoEsperado, resultadoActual);
+        }
+
+        // ------------- MULTIPLICACION -------------
+        [Fact]
+        public void Multiplicar_DosNumeros_DevuelveProductoCorrecto()
+        {
+            int a = 5;
+            int b = 4;
+            int resultadoEsperado = 20;
+            int resultadoActual = Calculadora.Multiplicar(a, b);
+            Assert.Equal(resultadoEsperado, resultadoActual);
+        }
+
+        // ------------- DIVISION -------------
+        [Fact]
+        public void Dividir_DosNumeros_DevuelveCocienteCorrecto()
+        {
+            double a = 10.0;
+            double b = 2.0;
+            double resultadoEsperado = 5.0;
+            double resultadoActual = Calculadora.Dividir(a, b);
+            Assert.Equal(resultadoEsperado, resultadoActual, 5);
+        }
+
+        [Fact]
+        public void Dividir_PorCero_LanzaExcepcion()
+        {
+            double a = 10.0;
+            double b = 0.0;
+            Action accion = () => Calculadora.Dividir(a, b);
+            Assert.Throws<ArgumentException>(accion);
+        }
+
         // ------------- POTENCIA -------------
         [Fact]
         public void Potencia_BaseYExponentePositivos_DevuelveResultadoCorrecto()
@@ -82,6 +124,44 @@ namespace MiApp.Consola.Tests
             double angulo = Math.PI / 2;
             double resultadoEsperado = 1.0;
             double resultadoActual = Calculadora.Seno(angulo);
+            Assert.Equal(resultadoEsperado, resultadoActual, 5);
+        }
+
+        // ------------- COSENO -------------
+        [Fact]
+        public void Coseno_CeroRadianes_DevuelveUno()
+        {
+            double angulo = 0.0;
+            double resultadoEsperado = 1.0;
+            double resultadoActual = Calculadora.Coseno(angulo);
+            Assert.Equal(resultadoEsperado, resultadoActual, 5);
+        }
+
+        [Fact]
+        public void Coseno_Pi_DevuelveMenosUno()
+        {
+            double angulo = Math.PI;
+            double resultadoEsperado = -1.0;
+            double resultadoActual = Calculadora.Coseno(angulo);
+            Assert.Equal(resultadoEsperado, resultadoActual, 5);
+        }
+
+        // ------------- TANGENTE -------------
+        [Fact]
+        public void Tangente_CeroRadianes_DevuelveCero()
+        {
+            double angulo = 0.0;
+            double resultadoEsperado = 0.0;
+            double resultadoActual = Calculadora.Tangente(angulo);
+            Assert.Equal(resultadoEsperado, resultadoActual, 5);
+        }
+
+        [Fact]
+        public void Tangente_PiCuartos_DevuelveUno()
+        {
+            double angulo = Math.PI / 4;
+            double resultadoEsperado = 1.0;
+            double resultadoActual = Calculadora.Tangente(angulo);
             Assert.Equal(resultadoEsperado, resultadoActual, 5);
         }
 
