@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Postular Idea";
+    ViewData["Subtitle"] = "Envía tu idea creativa para ser evaluada";
+}
+
+<div class="form-container glass">
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-error">@ViewBag.Error</div>
+    }
+    @if (ViewBag.Success != null)
+    {
+        <div class="alert alert-success">@ViewBag.Success</div>
+    }
+
+    <form method="post" action="/Postulacion">
+        <div class="form-group">
+            <label for="loginTeamName">Nombre del Equipo</label>
+            <input type="text" id="loginTeamName" name="loginTeamName" class="form-control" required placeholder="Tu nombre de equipo">
+        </div>
+        
+        <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" name="loginPassword" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="ideaText">Texto de la idea creativa</label>
+            <textarea id="ideaText" name="ideaText" class="form-control" rows="5" required placeholder="Describe tu idea detalladamente..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-1">Postular Idea</button>
+        <div class="text-center mt-1">
+            <a href="/" style="color: var(--text-muted); text-decoration: none;">Volver al inicio</a>
+        </div>
+    </form>
+</div>

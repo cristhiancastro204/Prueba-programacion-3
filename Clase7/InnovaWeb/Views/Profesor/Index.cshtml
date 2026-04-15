@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Panel de Profesor";
+    ViewData["Subtitle"] = "Revisión y validación de ideas postuladas";
+}
+
+<div class="form-container glass">
+    <h2 class="text-center mb-1">Acceso Restringido</h2>
+    
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-error">@ViewBag.Error</div>
+    }
+
+    <form method="post" action="/Profesor">
+        <div class="form-group">
+            <label for="profUser">Usuario</label>
+            <input type="text" id="profUser" name="profUser" class="form-control" required placeholder="Usuario del profesor">
+        </div>
+        
+        <div class="form-group">
+            <label for="profPass">Contraseña</label>
+            <input type="password" id="profPass" name="profPass" class="form-control" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-1" style="background: linear-gradient(135deg, var(--accent), var(--primary));">Ingresar al Panel</button>
+        <div class="text-center mt-1">
+            <a href="/" style="color: var(--text-muted); text-decoration: none;">Volver al inicio</a>
+        </div>
+    </form>
+</div>

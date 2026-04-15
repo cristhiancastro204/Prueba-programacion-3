@@ -1,0 +1,186 @@
+@model List<InnovaWeb.Models.Idea>
+@{
+    ViewData["Title"] = "Panel de Profesor";
+    ViewData["Subtitle"] = "Administración de Ideas";
+}
+
+<div style="width: 100%; max-width: 800px; margin: 0 auto;">
+    <div class="glass mb-2">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">
+            <h2>Ideas Postuladas</h2>
+            <form method="post" action="/Profesor/Logout">
+                <button type="submit" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1.5rem; font-size: 0.9rem;">Cerrar Sesión</button>
+            </form>
+        </div>
+        
+        <div id="alert-container-dashboard" class="alert mt-1" style="display: none;"></div>
+
+        <div class="ideas-list mt-2">
+            @if (Model.Count == 0)
+            {
+                <p class="text-center" style="color: var(--text-muted);">No hay ideas postuladas aún.</p>
+            }
+            else
+            {
+                @foreach (InnovaWeb.Models.Idea idea in Model)
+                {
+                    <div class="idea-card glass" style="background: rgba(0,0,0,0.3);">
+                        <div class="idea-card-header">
+                            @{
+                                List<InnovaWeb.Models.Equipo> listaEquipos = ViewBag.Equipos as List<InnovaWeb.Models.Equipo> ?? new List<InnovaWeb.Models.Equipo>();
+                                InnovaWeb.Models.Equipo? equipoData = listaEquipos.FirstOrDefault(e => e.NombreEquipo == idea.NombreEquipo);
+                            }
+                            <div>
+                                <h3>Equipo: @idea.NombreEquipo</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Integrantes: @(equipoData != null ? equipoData.NombresIntegrantes : "No definidos")</p>
+                            </div>
+                            @if (idea.IsApproved)
+                            {
+                                <span class="status-badge status-approved" id="badge-@idea.Id">Aprobada</span>
+                            }
+                            else if (idea.IsDisapproved)
+                            {
+                                <span class="status-badge status-rejected" id="badge-@idea.Id">Desaprobada</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge status-pending" id="badge-@idea.Id">Pendiente revisión</span>
+                            }
+                        </div>
+                        <div class="idea-date">Postulada el: @idea.FechaPostulacion.ToString("g")</div>
+                        <div class="idea-content">"@idea.Texto"</div>
+                        <div class="idea-actions">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="idea-checkbox" data-id="@idea.Id" data-field="isCreative" @(idea.IsCreative ? "checked" : "")>
+                                Es creativa
+                            </label>
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="idea-checkbox" data-id="@idea.Id" data-field="isWellFormulated" @(idea.IsWellFormulated ? "checked" : "")>
+                                Está bien planteada
+                            </label>
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="idea-checkbox" data-id="@idea.Id" data-field="isApproved" @(idea.IsApproved ? "checked" : "")>
+                                Aprobada
+                            </label>
+                            <label class="checkbox-wrapper" style="color: #ffb3c6;">
+                                <input type="checkbox" class="idea-checkbox" data-id="@idea.Id" data-field="isDisapproved" @(idea.IsDisapproved ? "checked" : "")>
+                                Desaprobada
+                            </label>
+                        </div>
+                        <div class="mt-1" style="width: 100%;">
+                            <label for="obs-@idea.Id" style="font-size: 0.85rem; color: var(--text-muted);">Observaciones internas:</label>
+                            <textarea id="obs-@idea.Id" class="form-control idea-observation" rows="2" style="font-size: 0.9rem;" data-id="@idea.Id" placeholder="Escribe aquí el porqué de la decisión...">@idea.Observaciones</textarea>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="text-center mt-1">
+        <a href="/" style="color: var(--text-muted); text-decoration: none;">Volver al inicio</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.idea-checkbox').forEach(chk => {
+            chk.addEventListener('change', function() {
+                const id = this.getAttribute('data-id');
+                const field = this.getAttribute('data-field');
+                const isChecked = this.checked;
+
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('field', field);
+                formData.append('isChecked', isChecked);
+
+                fetch('/Profesor/UpdateIdeaStatus', {
+                    method: 'POST',
+                    body: formData
+                }).then(async response => {
+                    if (response.ok) {
+                        if (field === 'isApproved' || field === 'isDisapproved') {
+                            // Enforce mutual exclusivity
+                            if (isChecked) {
+                                const otherField = field === 'isApproved' ? 'isDisapproved' : 'isApproved';
+                                const otherCheckbox = document.querySelector(`.idea-checkbox[data-id="${id}"][data-field="${otherField}"]`);
+                                if (otherCheckbox && otherCheckbox.checked) {
+                                    otherCheckbox.checked = false;
+                                    const otherFormData = new FormData();
+                                    otherFormData.append('id', id);
+                                    otherFormData.append('field', otherField);
+                                    otherFormData.append('isChecked', false);
+                                    fetch('/Profesor/UpdateIdeaStatus', { method: 'POST', body: otherFormData });
+                                }
+                            }
+                            
+                            const badge = document.getElementById('badge-' + id);
+                            const isApprChecked = document.querySelector(`.idea-checkbox[data-id="${id}"][data-field="isApproved"]`).checked;
+                            const isRejChecked = document.querySelector(`.idea-checkbox[data-id="${id}"][data-field="isDisapproved"]`).checked;
+                            
+                            if (isApprChecked) {
+                                badge.className = 'status-badge status-approved';
+                                badge.textContent = 'Aprobada';
+                            } else if (isRejChecked) {
+                                badge.className = 'status-badge status-rejected';
+                                badge.textContent = 'Desaprobada';
+                            } else {
+                                badge.className = 'status-badge status-pending';
+                                badge.textContent = 'Pendiente revisión';
+                            }
+
+                            const alertBox = document.getElementById('alert-container-dashboard');
+                            alertBox.className = 'alert alert-success show';
+                            alertBox.textContent = 'Estado de idea actualizado con éxito.';
+                            alertBox.style.display = 'block';
+                            
+                            setTimeout(() => {
+                                alertBox.style.display = 'none';
+                            }, 3000);
+                        }
+                    } else {
+                        const errorMsg = await response.text();
+                        const alertBox = document.getElementById('alert-container-dashboard');
+                        alertBox.className = 'alert alert-error show';
+                        alertBox.textContent = errorMsg || 'Error al actualizar estado.';
+                        alertBox.style.display = 'block';
+                        
+                        // Revert tick since it was not successful
+                        chk.checked = !isChecked;
+                        
+                        setTimeout(() => {
+                            alertBox.style.display = 'none';
+                        }, 5000);
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('.idea-observation').forEach(txt => {
+            txt.addEventListener('change', function() {
+                const id = this.getAttribute('data-id');
+                const text = this.value;
+
+                const formData = new FormData();
+                formData.append('id', id);
+                formData.append('text', text);
+
+                fetch('/Profesor/UpdateIdeaObservation', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        const alertBox = document.getElementById('alert-container-dashboard');
+                        alertBox.className = 'alert alert-success show';
+                        alertBox.textContent = 'Observación guardada.';
+                        alertBox.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            alertBox.style.display = 'none';
+                        }, 2500);
+                    }
+                });
+            });
+        });
+    </script>
+}
