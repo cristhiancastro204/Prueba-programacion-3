@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InnovaWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ecc0f7441808637586ac039348fa0d1fc6acaf4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce6d0bbc8f16801e102fe734325aa4f32128e0a6")]
 [assembly: System.Reflection.AssemblyProductAttribute("InnovaWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InnovaWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
